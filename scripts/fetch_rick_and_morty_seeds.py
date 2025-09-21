@@ -8,7 +8,7 @@ import re
 from typing import List, Dict, Any
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SEEDS_DIR = os.path.join(ROOT, "seeds")
+SEEDS_DIR = os.path.join(ROOT, "dbt_rickandmorty/seeds")
 os.makedirs(SEEDS_DIR, exist_ok=True)
 
 BASE = "https://rickandmortyapi.com/api"
@@ -121,17 +121,17 @@ def main():
     print("Fetching characters...")
     chars = fetch_all("character")
     df_chars = prepare_characters(chars)
-    save_df(df_chars, "rick_characters.csv")
+    save_df(df_chars, "characters.csv")
 
     print("Fetching locations...")
     locs = fetch_all("location")
     df_locs = prepare_locations(locs)
-    save_df(df_locs, "rick_locations.csv")
+    save_df(df_locs, "locations.csv")
 
     print("Fetching episodes...")
     eps = fetch_all("episode")
     df_eps = prepare_episodes(eps)
-    save_df(df_eps, "rick_episodes.csv")
+    save_df(df_eps, "episodes.csv")
 
 
 if __name__ == "__main__":

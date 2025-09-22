@@ -1,4 +1,4 @@
-# scripts/fetch_rick_and_morty_seeds.py
+# scripts/fetch_and_morty_seeds.py
 import requests
 import pandas as pd
 import time

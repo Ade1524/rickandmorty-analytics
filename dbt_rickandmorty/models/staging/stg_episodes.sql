@@ -1,17 +1,30 @@
-with base as (
+with rename as (
 
-
-    select
-        cast("ID" as integer)           as episode_id,
-        cast("NAME" as varchar)         as episode_name,
-        cast("AIR_DATE" as varchar)     as air_date,
-        cast("EPISODE_CODE" as varchar)      as episode_code,   -- careful: column might be "EPISODE" not "EPISODE_CODE"
-        cast("CHARACTERS_COUNT" as int)  as character_count,
-        cast("CHARACTERS_URLS" as varchar)  as character_urls,
-        cast("URL" as varchar)          as url,
-        cast("CREATED" as timestamp)    as created
-    from {{ ref('episodes') }}
+    {{ cast_and_rename(
+        ref('episodes'),
+        {
+            "id": {"dtype": "integer", "alias": "episode_id"},
+            "name": {"dtype": "varchar", "alias": "episode_name"},
+            "air_date": {"dtype": "varchar"},
+            "episode_code": {"dtype": "varchar"},
+            "characters_count": {"dtype": "integer"},
+            "characters_urls": {"dtype": "varchar"},
+            "url": {"dtype": "varchar"},
+            "created": {"dtype": "timestamp"}
+        }
+    ) }}
 
 )
 
-select * from base
+select 
+      episode_id,
+      episode_name,
+      TO_DATE(air_date, 'MMMM DD, YYYY') as air_date,
+      episode_code,
+      characters_count as total_character_featuring,
+      characters_urls,
+      url as episode_url,
+      created as episode_time_created
+from rename
+
+

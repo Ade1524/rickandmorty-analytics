@@ -1,19 +1,26 @@
-with characters_all as (
-    SELECT id::integer AS character_id,
-        name::varchar AS character_name,
-        status::varchar,
-        species::varchar,
-        type::varchar AS character_type,
-        gender::varchar,
-        origin_name::varchar,
-        origin_url::varchar,
-        location_name::varchar,
-        location_url::varchar,
-        image::varchar,
-        episode_count::integer,
-        url::varchar AS character_url,
-        created::timestamp_ntz AS created_at
-    FROM {{ ref('characters') }}
+with rename as (
+
+    {{ cast_and_rename(
+        ref('characters'),
+        {
+            "id": {"dtype": "integer", "alias": "character_id"},
+            "name": {"dtype": "varchar", "alias": "character_name"},
+            "status": {"dtype": "varchar"},
+            "species": {"dtype": "varchar"},
+            "type": {"dtype": "varchar"},
+            "gender": {"dtype": "varchar"},
+            "origin_name": {"dtype": "varchar", "alias": "origin_location_name"},
+            "origin_url": {"dtype": "varchar",  "alias": "origin_location_name_url"},
+            "location_name": {"dtype": "varchar"},
+            "location_url": {"dtype": "varchar"},
+            "image": {"dtype": "varchar",  "alias": "image_url"},
+            "episode_count": {"dtype": "integer", "alias": "total_episodes_feature"},
+            "episode_urls": {"dtype": "varchar", "alias": "episodes_feature"},
+            "url": {"dtype": "varchar", "alias": "character_url"},
+            "created": {"dtype": "timestamp", "alias": "character_created_at"}
+        }
+    ) }}
+
 )
-select *
-from characters_all
+
+select * from rename

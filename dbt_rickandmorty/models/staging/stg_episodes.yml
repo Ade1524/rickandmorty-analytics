@@ -1,0 +1,30 @@
+version: 2
+
+models:
+    - name: stg_episode
+      description: "Staging table for episodes of Rick and Morty."
+      columns:
+      - name: episode_id
+        description: "The id of the episode."
+        tests: 
+        - unique
+        - not_null
+      - name: episode_name
+        description: "Name of the episode."
+        tests: 
+        - not_null
+      - name: air_date
+        description: "The air date of the episode."
+      - name: episode_code
+        description: "The code of the episode."
+      - name: total_character_featuring
+        description: "Total character featuring at the episode" 
+      - name: characters_urls
+        description: "List of characters who have been seen in the episode."
+      - name: episode_url
+        description: "Link to the episode's own endpoint."
+      - name: episode_time_created
+        description: "Time at which the episode was created in the database."       
+
+
+

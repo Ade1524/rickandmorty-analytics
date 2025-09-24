@@ -1,0 +1,13 @@
+version: 2
+
+seeds:
+  - name: characters
+    description: "Rick and Morty characters"
+
+  - name: locations
+    description: "Rick and Morty locations"
+    
+
+  - name: episodes
+    description: "Rick and Morty episodes"
+    

@@ -1,3 +1,10 @@
+{{
+    config(
+        materialized='ephemeral'
+    )
+}}
+
+
 WITH unnested_episodes AS (
     -- 1. Unnest the episode_urls column based on the pipe (|) delimiter
     SELECT

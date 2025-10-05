@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: fact_mart_rkandmy
+    description: A core fact table recording the appearance of a character in a specific episode, potentially linking to a location (if applicable to the join logic). The grain is one record per character appearance in an episode.
+
+    columns:
+      - name: dim_character_sk
+        description: Surrogate Key (FK) linking to the dim_character table.
+
+      - name: character_id
+        description: The id of the character.
+
+      - name: total_episodes_feature
+        description: A calculated metric representing the total number of episodes this character has featured in (or the count used to aggregate to this fact's grain).
+
+      - name: dim_locations_sk
+        description: Surrogate Key (FK) linking to the dim_location table.
+
+      - name: location_id
+        description: The id of the location.
+
+      - name: dim_episodes_sk
+        description: Surrogate Key (FK) linking to the dim_episode table.
+
+      - name: episode_id
+        description: The id of the episode.
+
+      - name: episode_code
+        description: The unique production code of the episode (e.g., S01E01)
+
+

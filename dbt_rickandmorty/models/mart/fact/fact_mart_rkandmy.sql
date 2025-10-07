@@ -19,7 +19,7 @@ with dim_char as (
 , int_ch_ep as (
     select 
         *
-    from {{ ref('int_characters_episodes') }}
+    from {{ ref('int_char_single_episode') }}
 )
 
 , fact as (
@@ -35,7 +35,7 @@ with dim_char as (
     from dim_char dc 
     left join dim_loc  l on dc.location_name = l.location_name
     left join int_ch_ep  ice on dc.character_id = ice.character_id
-    left join dim_epi e on ice.episode_id_join_key = e.episode_id
+    left join dim_epi e on ice.episode_id = e.episode_id
 )
 
 select * from fact

@@ -1,0 +1,207 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: 
+      Date dimension table providing comprehensive calendar attributes for analytical queries.
+      Includes standard date fields, fiscal periods, date offsets, and relative date calculations.
+      Contains both an 'unknown' record for handling missing dates and full calendar coverage.
+      
+    columns:
+      # Primary Key
+      - name: dim_date_key
+        description: 
+          Surrogate key for the date dimension. 
+          Integer format (e.g., 20240101 for January 1, 2024).
+          Use -1 for unknown/missing dates.
+        tests:
+          - unique
+          - not_null
+          
+      # Core Date Fields
+      - name: date_day
+        description: 
+          The actual date value in DATE format.
+          Primary date field for joins and filtering.
+              
+      - name: date_iso
+        description: 
+          Date in ISO 801 format (YYYY-MM-DD).
+        tests:
+          - not_null
+          
+      - name: date_gb
+        description: 
+          Date in UK/British format (DD/MM/YYYY).
+        
+      - name: date_us
+        description: 
+          Date in US format (MM/DD/YYYY).
+        
+      # Day Attributes
+      - name: day_of_week_number
+        description: 
+          Numeric day of week (1-7).
+          1 = Monday, 7 = Sunday (ISO standard).
+              
+      - name: day_of_week
+        description: 
+          Full name of the day of week.
+              
+      - name: day_of_week_abbr
+        description: 
+          Three-letter abbreviation of day name.
+              
+      - name: day_of_month
+        description: 
+          Day of month as padded string (01-31).
+          
+      - name: day_of_month_number
+        description: 
+          Day of month as integer (1-31).
+          Used for calculations and comparisons.
+              
+      - name: day_ordinal_indicator
+        description: 
+          Ordinal indicator for day number (st, nd, rd, th).
+              
+      - name: day_of_year
+        description: 
+          Day number within the year (1-366).
+          January 1st = 1, December 31st = 365 (or 366 in leap years).
+
+      # Week Attributes
+      - name: week_of_year
+        description: 
+          ISO week number within the year (1-53).
+          Week 1 contains the first Thursday of the year.
+              
+      # Month Attributes
+      - name: month_of_year
+        description: 
+          Month number within the year (1-12).
+          1 = January, 12 = December
+
+      - name: month_name
+        description: 
+          Full name of the month.
+                        
+      - name: month_name_abbr
+        description: 
+          Three-letter abbreviation of month name.
+              
+      - name: month_numbered
+        description: 
+          Month number and abbreviation combined.
+          
+      - name: first_day_of_month
+        description: 
+          First day of the month as DATE.
+          Useful for month-to-date calculations.
+          
+      - name: last_day_of_month
+        description: 
+          Last day of the month as DATE.
+          Useful for month-end calculations.
+          
+      # Quarter Attributes
+      - name: quarter
+        description: 
+          Calendar quarter with year abbreviation.
+          
+      - name: quarter_of_year
+        description: 
+          Quarter number within the year.
+              
+      # Year Attributes
+      - name: year
+        description: 
+          Four-digit year (YYYY).
+          
+      - name: year_abbr
+        description: 
+          Two-digit year abbreviation (YY).
+          
+      # Date Offsets
+      - name: day_offset
+        description: 
+          Number of days from a reference date (typically today).
+          0 = today, -1 = yesterday, 1 = tomorrow
+        
+      - name: week_offset
+        description: 
+          Number of weeks from a reference date.
+          0 = current week, -1 = last week, 1 = next week
+        
+      - name: month_offset
+        description: 
+          Number of months from a reference date.
+          0 = current month, -1 = last month, 1 = next month
+        
+      - name: quarter_offset
+        description: 
+          Number of quarters from a reference date.
+          0 = current quarter, -1 = last quarter, 1 = next quarter
+        
+      - name: year_offset
+        description: 
+          Number of years from a reference date.
+          0 = current year, -1 = last year, 1 = next year
+        
+      # Relative Date Fields
+      - name: same_day_last_week
+        description: 
+          Date exactly 7 days prior.
+          Used for week-over-week comparisons.
+          
+      - name: same_day_last_fortnight
+        description: 
+          Date exactly 14 days prior.
+          Used for bi-weekly comparisons.
+          
+      - name: same_day_last_month
+        description: 
+          Same day of month in the previous month.
+          Used for month-over-month comparisons.
+          
+      - name: same_day_last_year
+        description: 
+          Same date in the previous year.
+          Used for year-over-year comparisons.
+          
+      - name: same_day_next_week
+        description: 
+          Date exactly 7 days forward.
+          Used for week-ahead projections.
+          
+      - name: same_day_next_fortnight
+        description: 
+          Date exactly 14 days forward.
+          Used for bi-weekly projections.
+          
+      - name: same_day_next_month
+        description: 
+          Same day of month in the next month.
+          Used for month-ahead projections.
+          
+      - name: same_day_next_year
+        description: 
+          Same date in the next year.
+          Used for year-ahead projections.
+          
+      # Fiscal Period Attributes
+      - name: fiscal_quarter
+        description: 
+          Fiscal quarter with fiscal year abbreviation.
+          
+      - name: fiscal_quarter_of_year
+        description: 
+          Fiscal quarter number within the fiscal year.
+              
+      - name: fiscal_year
+        description: 
+          Four-digit fiscal year (FYYYY).
+          
+      - name: fiscal_year_abbr
+        description: 
+          Abbreviated fiscal year (FYY).

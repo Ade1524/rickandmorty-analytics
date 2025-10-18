@@ -28,5 +28,5 @@ models:
         description: "List of characters who have been seen in the episode."
       - name: episode_url
         description: "Link to the episode's own endpoint."
-      - name: episode_time_created
-        description: "Time at which the episode was created in the database."
+      - name: episode_day_created
+        description: "Day at which the episode was created in the database."

@@ -28,13 +28,9 @@ models:
         description: "The gender of the character ('Female', 'Male', 'Genderless' or 'unknown')."
       - name: origin_location_name
         description: "Name of the character's place of origin."
-      - name: origin_location_name_url
-        description: "Link of the character's place of origin."  
       - name: location_name
         description: "Name of the character's last known location."
-      - name: location_url
-        description: "Link of the character's last known location."
-      - name: image_url
+      - name: image_character_url
         description: "Link to the character's image. "
       - name: total_episodes_feature
         description: "Total episodes in which this character appeared." 
@@ -42,6 +38,6 @@ models:
         description: "List of episodes in which this character appeared."
       - name: character_url
         description: "Link to the character's own URL endpoint."         
-      - name: character_created_at
-        description: "Time at which the character was created in the database."
+      - name: character_day_created
+        description: "Day at which the character was created in the database."
       

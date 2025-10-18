@@ -32,7 +32,6 @@ ranked as (
 select 
     r.character_id,
     r.character_name,
-    r.image_url,
     r.character_url,
     e.episode_id,
     e.episode_name,

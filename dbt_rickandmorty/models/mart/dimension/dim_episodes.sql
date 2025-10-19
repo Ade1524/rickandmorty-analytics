@@ -14,6 +14,7 @@ select
     episode_name,
     air_date,
     episode_code,
+    'Season ' || (SUBSTR(episode_code, 2, 2))::INTEGER AS seasons,
     total_character_featuring,
     characters_urls,
     episode_url,

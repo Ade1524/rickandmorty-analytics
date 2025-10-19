@@ -1,7 +1,7 @@
 -- using a recursive cte to create a date dimension
 -- one row per every day
 with recursive params(start_date, end_date, day_interval) as (
-  select '1900-01-01'::date, '2030-12-31'::date, 1
+  select '2017-01-01'::date, '2025-12-31'::date, 1
 )
   
 , date_spine as (
@@ -159,4 +159,7 @@ with recursive params(start_date, end_date, day_interval) as (
       from calendar
 )
 
-select * from final
+select 
+    {{ dbt_utils.generate_surrogate_key([ 'date_day' ]) }} as dim_date_sk,
+    *
+from final

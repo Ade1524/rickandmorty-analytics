@@ -2,7 +2,7 @@
     materialized = 'view'
 ) }}
 
-with exploded as (
+with unnested_charater_episode as (
 
     -- Step 1: Split the pipe-delimited episodes_feature into individual rows
     select
@@ -25,7 +25,7 @@ ranked as (
     select
         e.*,
         row_number() over (partition by e.character_id order by e.episode_index) as rn
-    from exploded e
+    from unnested_charater_episode e
 )
 
 -- Step 3: Keep only the first episode per character and join with episodes

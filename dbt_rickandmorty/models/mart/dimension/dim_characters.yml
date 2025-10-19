@@ -5,39 +5,52 @@ models:
     description: "Dimension table for characters with surrogate key."
     columns:
       - name: dim_character_sk
-        description: "Surrogate key (character_id + image_url + character_url)."
+        description: Surrogate key (character_id + image_url + character_url).
         tests: 
         - unique 
         - not_null
+
       - name: character_id
-        description: "The id of the character."
+        description: The id of the character.
         tests: 
          - unique
          - not_null
+
       - name: character_name
-        description: "Name of the character."
+        description: Name of the character.
         tests: 
         - not_null
+
       - name: status
-        description: "The status of the character ('Alive', 'Dead' or 'unknown')."
+        description: The status of the character ('Alive', 'Dead' or 'unknown').
+
       - name: species
-        description: "The species of the character."
+        description: The species of the character.
+
       - name: type
-        description: "The type or subspecies of the character."
+        description: The type or subspecies of the character.
+
       - name: gender
-        description: "The gender of the character ('Female', 'Male', 'Genderless' or 'unknown')."
+        description: The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
+
       - name: origin_location_name
-        description: "Name of the character's place of origin."
+        description: Name of the character's place of origin.
+
       - name: location_name
-        description: "Name of the character's last known location."
+        description: Name of the character's last known location.
+
       - name: image_character_url
-        description: "Link to the character's image. "
+        description: Link to the character's image. 
+
       - name: total_episodes_feature
-        description: "Total episodes in which this character appeared." 
+        description: Total episodes in which this character appeared
+
       - name: episodes_feature
-        description: "List of episodes in which this character appeared."
+        description: List of episodes in which this character appeared.
+
       - name: character_url
-        description: "Link to the character's own URL endpoint."         
+        description: Link to the character's own URL endpoint.         
+        
       - name: character_day_created
-        description: "Day at which the character was created in the database."
+        description: Day at which the character was created in the database.
       

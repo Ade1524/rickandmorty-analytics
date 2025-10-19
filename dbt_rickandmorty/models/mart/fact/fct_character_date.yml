@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: fct_character_date
+    description: A core fact table recording the first appearance of a character in a specific episode, the date of the craetion of the character. The grain is one record per character appearance in an episode.
+
+    columns:
+      - name: dim_character_sk
+        description: Surrogate Key (FK) linking to the dim_character table.
+        tests: 
+        - unique 
+        - not_null
+
+      - name: dim_date_sk
+        description: Surrogate key (date_day).
+        tests: 
+        - not_null
+
+      - name: character_id
+        description: The id of the character.
+
+      - name: character_name
+        description: Name of the character.
+        tests: 
+        - not_null
+
+      - name: first_episode_featured
+        description: The id of the episode, the first episode where the character has appeared.  
+
+      - name: status
+        description: The status of the character ('Alive', 'Dead' or 'unknown').
+
+      - name: alive_count
+        description: Column metric total of the character which status is 'Alive'. 1 if is true or 0 if false. 
+
+      - name: death_count
+        description: Column metric total of the character which status is 'Dead'. 1 if is true or 0 if false. 
+
+      - name: character_day_created
+        description: Day at which the character was created in the database. 

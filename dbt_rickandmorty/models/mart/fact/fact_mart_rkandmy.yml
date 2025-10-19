@@ -7,7 +7,9 @@ models:
     columns:
       - name: dim_character_sk
         description: Surrogate Key (FK) linking to the dim_character table.
-
+        tests: 
+        - unique 
+        - not_null
       - name: character_id
         description: The id of the character.
 
@@ -22,7 +24,9 @@ models:
 
       - name: dim_episodes_sk
         description: Surrogate Key (FK) linking to the dim_episode table.
-
+        tests: 
+        - not_null
+        
       - name: episode_id
         description: The id of the episode.
 

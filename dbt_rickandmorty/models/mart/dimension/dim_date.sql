@@ -160,6 +160,5 @@ with recursive params(start_date, end_date, day_interval) as (
 )
 
 select 
-    {{ dbt_utils.generate_surrogate_key([ 'date_day' ]) }} as dim_date_sk,
     *
 from final

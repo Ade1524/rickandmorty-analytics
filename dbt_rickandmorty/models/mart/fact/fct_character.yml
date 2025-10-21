@@ -11,7 +11,7 @@ models:
         - unique 
         - not_null
 
-      - name: dim_date_sk
+      - name: dim_character_date_sk
         description: Surrogate key (date_day).
         tests: 
         - not_null

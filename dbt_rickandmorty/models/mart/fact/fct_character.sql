@@ -18,7 +18,7 @@ with status_count as (
 
 select 
        b.dim_character_sk,
-       c.dim_date_sk,
+       c.dim_date_sk as dim_character_date_sk,
        a.character_id,
        a.character_name,
        a.episode_id as first_episode_featured,

@@ -1,7 +1,7 @@
 -- using a recursive cte to create a date dimension
 -- one row per every day
 with recursive params(start_date, end_date, day_interval) as (
-  select '2017-01-01'::date, '2025-12-31'::date, 1
+  select '2012-01-01'::date, '2025-12-31'::date, 1
 )
   
 , date_spine as (

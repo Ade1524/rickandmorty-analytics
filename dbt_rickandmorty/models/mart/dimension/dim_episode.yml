@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: dim_episodes
+  - name: dim_episode
     description: Dimension table for characters with surrogate key.
     columns:
       - name: dim_episodes_sk

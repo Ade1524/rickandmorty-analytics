@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fct_character_date
+  - name: fct_character
     description: A core fact table recording the first appearance of a character in a specific episode, the date of the craetion of the character. The grain is one record per character appearance in an episode.
 
     columns:

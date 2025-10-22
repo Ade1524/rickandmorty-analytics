@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fact_mart_rkandmy
+  - name: fact_character_episode_location
     description: A core fact table recording the appearance of a character in a specific episode, potentially linking to a location (if applicable to the join logic). The grain is one record per character appearance in an episode.
 
     columns:

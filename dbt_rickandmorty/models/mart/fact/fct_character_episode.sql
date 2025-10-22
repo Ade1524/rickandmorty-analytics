@@ -1,6 +1,7 @@
 with exploded as (
     select
-        c.dim_character_sk,
+        c.dim_character_key,
+        dim_character_created_date_key,
         c.total_episodes_feature,
         c.character_id,
         c.character_name,
@@ -11,14 +12,16 @@ with exploded as (
         character_day_created,
         t.value as episode_url,
         row_number() over (partition by c.character_id order by t.value) as rn
-    from {{ ref('dim_characters') }} c,
+    from {{ ref('dim_character') }} c,
          table(split_to_table(c.episodes_feature, '|')) as t
 )
 , character_episode as (
 select
-    a.dim_character_sk,
-    b.dim_episodes_sk,
-    c.dim_date_sk,
+    a.dim_character_key,
+    b.dim_episodes_key,
+    a.dim_character_created_date_key,
+    b.dim_episode_date_created_key,
+    b.dim_air_date_key,
     a.character_id,
     a.total_episodes_feature,
     a.status,
@@ -31,16 +34,18 @@ select
     b.episode_code,
     b.total_character_featuring,
     b.air_date,
+    b.episode_day_created,
     c.date_day
 from exploded a 
-left join {{ ref('dim_episodes') }} b
-on a.episode_url = b.episode_url
-left join {{ ref('dim_date') }} c
-on b.air_date = c.date_day
+left join {{ ref('dim_episode') }} b on a.episode_url = b.episode_url
+left join {{ ref('dim_date') }} c on b.dim_episode_date_created_key = c.dim_date_key
+left join {{ ref('dim_date') }} d on b.dim_air_date_key = d.dim_date_key
 group by
-    a.dim_character_sk,
-    b.dim_episodes_sk,
-    c.dim_date_sk,
+    a.dim_character_key,
+    b.dim_episodes_key,
+    a.dim_character_created_date_key,
+    b.dim_episode_date_created_key,
+    b.dim_air_date_key,
     a.character_id,
     a.total_episodes_feature,
     a.status,
@@ -57,18 +62,20 @@ group by
 
 
 select 
-     dim_character_sk,
-     dim_episodes_sk,
-     dim_date_sk as dim_air_date_sk,
-     character_id,
-     character_day_created,
-     status,
-     total_episodes_feature,
-     episode_id,
-     seasons,
-     episode_code,
-     total_character_featuring,
-     air_date     
+    dim_character_key,
+    dim_episodes_key,
+    dim_character_created_date_key,
+    dim_episode_date_created_key,
+    dim_air_date_key,
+    character_id,
+    character_day_created,
+    status,
+    total_episodes_feature,
+    episode_id,
+    seasons,
+    episode_code,
+    total_character_featuring,
+    air_date     
 from character_episode
 order by 
          episode_id,

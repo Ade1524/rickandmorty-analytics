@@ -1,8 +1,8 @@
 version: 2
 
 models:
-  - name: dim_characters
-    description: "Dimension table for characters with surrogate key."
+  - name: dim_character
+    description: Dimension table for characters with surrogate key.
     columns:
       - name: dim_character_sk
         description: Surrogate key (character_id + image_url + character_url).

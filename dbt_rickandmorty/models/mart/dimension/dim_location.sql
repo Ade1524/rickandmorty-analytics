@@ -11,7 +11,7 @@ select
         'location_id',
         'location_name',
         'location_url'
-    ]) }} as dim_locations_key,
+    ]) }} as dim_location_key,
     location_id,
     location_name,
     location_type,
@@ -25,7 +25,7 @@ from dim_loc
 )
 
 select 
-    dim_locations_key,
+    dim_location_key,
     {{ date_to_string('location_date_created', 'YYYYMMDD') }} as dim_location_created_date_key,
     location_id,
     location_name,

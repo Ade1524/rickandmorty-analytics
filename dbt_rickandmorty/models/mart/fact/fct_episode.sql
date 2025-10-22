@@ -8,10 +8,13 @@ with epi_c as (
                episode_code,
                total_character_featuring,
                episode_day_created      
-    from {{ ref('dim_episodes') }} 
+    from {{ ref('dim_episode') }} a
+    left join {{ ref('dim_date') }} b on a.episode_created_date_key = b.dim_date_key 
+    left join {{ ref('dim_date') }} c on a.air_date_key = c.dim_date_key 
 )
 
 select 
     *
 from epi_c 
+
 

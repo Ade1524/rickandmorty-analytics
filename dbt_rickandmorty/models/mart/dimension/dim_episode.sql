@@ -9,7 +9,7 @@ with dim_ep as (
         'episode_name',
         'episode_code',
         'episode_url'
-    ]) }} as dim_episodes_key,
+    ]) }} as dim_episode_key,
     episode_id,
     episode_name,
     air_date,
@@ -25,7 +25,7 @@ from dim_ep
 )
 
 select 
-    dim_episodes_key,
+    dim_episode_key,
     {{ date_to_string('episode_day_created', 'YYYYMMDD') }} as dim_episode_date_created_key,
     {{ date_to_string('air_date', 'YYYYMMDD') }} as dim_air_date_key,
     episode_id,

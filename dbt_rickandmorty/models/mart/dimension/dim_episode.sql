@@ -2,14 +2,14 @@ with dim_ep as (
     select *
     from {{ ref('stg_episodes') }}
 )
-
-select
+, dim_final as (
+    select
     {{ dbt_utils.generate_surrogate_key([
         'episode_id',
         'episode_name',
         'episode_code',
         'episode_url'
-    ]) }} as dim_episodes_sk,
+    ]) }} as dim_episode_key,
     episode_id,
     episode_name,
     air_date,
@@ -21,3 +21,21 @@ select
     episode_time_created :: date as episode_day_created
     
 from dim_ep
+
+)
+
+select 
+    dim_episode_key,
+    {{ date_to_string('episode_day_created', 'YYYYMMDD') }} as dim_episode_date_created_key,
+    {{ date_to_string('air_date', 'YYYYMMDD') }} as dim_air_date_key,
+    episode_id,
+    episode_name,
+    air_date,
+    episode_code,
+    seasons,
+    total_character_featuring,
+    characters_urls,
+    episode_url,
+    episode_day_created
+
+from dim_final

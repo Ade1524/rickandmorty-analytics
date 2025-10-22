@@ -8,15 +8,9 @@ models:
       Contains both an 'unknown' record for handling missing dates and full calendar coverage.
       
     columns:
-      - name: dim_date_sk
-        description: Surrogate key (date_day).
-        tests: 
-        - unique 
-        - not_null
-      
       - name: dim_date_key
         description: 
-          Primary key for the date dimension. 
+          Surrogate key for the date dimension. 
           Integer format (e.g., 20240101 for January 1, 2024).
           Use -1 for unknown/missing dates.
         tests:

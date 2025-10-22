@@ -1,18 +1,18 @@
 version: 2
 
 models:
-  - name: fct_character_date
+  - name: fct_character
     description: A core fact table recording the first appearance of a character in a specific episode, the date of the craetion of the character. The grain is one record per character appearance in an episode.
 
     columns:
-      - name: dim_character_sk
+      - name: dim_character_key
         description: Surrogate Key (FK) linking to the dim_character table.
         tests: 
         - unique 
         - not_null
 
-      - name: dim_character_date_sk
-        description: Surrogate key (date_day).
+      - name: dim_character_created_date_key
+        description: Converted data type 'date' to string and then to integer from column 'character_day_created'. 
         tests: 
         - not_null
 

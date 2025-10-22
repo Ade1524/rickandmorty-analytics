@@ -1,18 +1,15 @@
-with add_seasons as (
-        select *,
-               'Season ' || (SUBSTR(episode_code, 2, 2))::INTEGER AS seasons
-        from  {{ ref('dim_episodes') }}       
-
+with death_char_seasons as (
+    select
+        e.seasons,
+        count(distinct c.character_id) as death_count
+    from {{ ref('dim_character') }} c
+    join {{ ref('fact_character_episode_location') }} b on c.dim_character_key = b.dim_character_key
+    join {{ ref('dim_episode') }} e on e.dim_episode_key = b.dim_episode_key
+    where lower(c.status) = 'dead'
+    group by e.seasons
+    order by e.seasons
+                 
 )
 
-select
-    e.seasons,
-    count(distinct c.character_id) as death_count
-from {{ ref('dim_characters') }} c
-join {{ ref('fact_mart_rkandmy') }} b
-    on c.dim_character_sk = b.dim_character_sk
-join add_seasons e
-    on e.dim_episodes_sk = b.dim_episodes_sk
-where lower(c.status) = 'dead'
-group by e.seasons
-order by e.seasons
+select *
+from death_char_seasons

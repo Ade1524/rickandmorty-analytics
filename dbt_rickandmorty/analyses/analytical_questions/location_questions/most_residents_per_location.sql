@@ -3,9 +3,9 @@ with base as (
         dl.location_id,
         dl.location_name,
         count(distinct dc.character_id) as total_residents
-    from {{ ref('fact_mart_rkandmy') }} f
-    left join {{ ref('dim_characters') }} dc on f.dim_character_sk = dc.dim_character_sk
-    left join {{ ref('dim_locations') }} dl on f.dim_locations_sk = dl.dim_locations_sk
+    from {{ ref('fact_character_episode_location') }} f
+    left join {{ ref('dim_character') }} dc on f.dim_character_key = dc.dim_character_key
+    left join {{ ref('dim_location') }} dl on f.dim_location_key = dl.dim_location_key
     group by dl.location_id, dl.location_name
 )
 select

@@ -1,14 +1,19 @@
 version: 2
 
 models:
-  - name: dim_characters
-    description: "Dimension table for characters with surrogate key."
+  - name: dim_character
+    description: Dimension table for characters with surrogate key.
     columns:
-      - name: dim_character_sk
+      - name: dim_character_key
         description: Surrogate key (character_id + image_url + character_url).
         tests: 
         - unique 
         - not_null
+
+      - name: dim_character_created_date_key
+        description: Converted data type 'date' to string and then to integer from column 'character_day_created'. 
+        tests: 
+        - not_null  
 
       - name: character_id
         description: The id of the character.

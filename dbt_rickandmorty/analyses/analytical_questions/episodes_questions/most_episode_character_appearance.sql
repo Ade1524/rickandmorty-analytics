@@ -2,7 +2,7 @@ with base as (
     select 
         character_name,
         total_episodes_feature
-    from {{ ref('dim_characters') }}
+    from {{ ref('dim_character') }}
     WHERE
         character_name NOT ILIKE '%rick%'
         AND character_name NOT ILIKE '%morty%'

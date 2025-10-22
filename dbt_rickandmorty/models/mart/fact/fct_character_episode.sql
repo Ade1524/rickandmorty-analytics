@@ -18,7 +18,7 @@ with exploded as (
 , character_episode as (
 select
     a.dim_character_key,
-    b.dim_episodes_key,
+    b.dim_episode_key,
     a.dim_character_created_date_key,
     b.dim_episode_date_created_key,
     b.dim_air_date_key,
@@ -42,7 +42,7 @@ left join {{ ref('dim_date') }} c on b.dim_episode_date_created_key = c.dim_date
 left join {{ ref('dim_date') }} d on b.dim_air_date_key = d.dim_date_key
 group by
     a.dim_character_key,
-    b.dim_episodes_key,
+    b.dim_episode_key,
     a.dim_character_created_date_key,
     b.dim_episode_date_created_key,
     b.dim_air_date_key,
@@ -56,6 +56,7 @@ group by
     b.seasons,
     b.episode_code,
     b.air_date,
+    b.episode_day_created,
     c.date_day
      
 )
@@ -63,7 +64,7 @@ group by
 
 select 
     dim_character_key,
-    dim_episodes_key,
+    dim_episode_key,
     dim_character_created_date_key,
     dim_episode_date_created_key,
     dim_air_date_key,

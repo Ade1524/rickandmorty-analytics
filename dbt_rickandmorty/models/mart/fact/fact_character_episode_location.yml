@@ -5,32 +5,67 @@ models:
     description: A core fact table recording the appearance of a character in a specific episode, potentially linking to a location (if applicable to the join logic). The grain is one record per character appearance in an episode.
 
     columns:
-      - name: dim_character_sk
+      - name: dim_character_key
         description: Surrogate Key (FK) linking to the dim_character table.
         tests: 
         - unique 
         - not_null
+
+      - name: dim_character_created_date_key
+        description: Converted data type 'date' to string and then to integer from column 'character_day_created'. 
+        tests: 
+        - not_null  
+
       - name: character_id
         description: The id of the character.
 
       - name: total_episodes_feature
         description: A calculated metric representing the total number of episodes this character has featured in (or the count used to aggregate to this fact's grain).
 
-      - name: dim_locations_sk
+      - name: character_day_created
+        description: Day at which the character was created in the database.
+
+      - name: dim_location_key
         description: Surrogate Key (FK) linking to the dim_location table.
 
-      - name: location_id
-        description: The id of the location.
+      - name: dim_location_created_date_key
+        description: Converted data type 'date' to string and then to integer from column 'location_date_created'. 
+          
 
-      - name: dim_episodes_sk
+      - name: last_location_id
+        description: The id of the last location where the character has appeared.
+
+      - name: origin_location_id
+        description: The id of the origin location of the character.
+
+      - name: location_date_created
+        description: Time at which the location was created in the database.  
+
+      - name: dim_episode_key
         description: Surrogate Key (FK) linking to the dim_episode table.
         tests: 
         - not_null
-        
+
+      - name: dim_episode_date_created_key
+        description: Converted data type 'date' to string and then to integer from column 'episode_day_created'. 
+        tests: 
+        - not_null  
+
+      - name: dim_air_date_key
+        description: Converted data type 'date' to string and then to integer from column 'air_date'. 
+        tests: 
+        - not_null  
+
       - name: episode_id
         description: The id of the episode.
 
       - name: episode_code
         description: The unique production code of the episode (e.g., S01E01)
+
+      - name: air_date
+        description: The air date of the episode.  
+
+      - name: episode_day_created
+        description: Day at which the episode was created in the database.  
 
 

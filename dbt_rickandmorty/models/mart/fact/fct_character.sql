@@ -10,6 +10,7 @@ with status_count as (
     from {{ ref('dim_character') }}
     group by 
            dim_character_key,
+           dim_character_created_date_key,
            character_id,
            status,
            total_episodes_feature,

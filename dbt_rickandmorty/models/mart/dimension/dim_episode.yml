@@ -4,29 +4,47 @@ models:
   - name: dim_episode
     description: Dimension table for characters with surrogate key.
     columns:
-      - name: dim_episodes_sk
+      - name: dim_episode_key
         description: Surrogate key (episode_id + episode_name + episode_code + episode_url).
         tests: 
         - unique 
         - not_null
+
+      - name: dim_episode_date_created_key
+        description: Converted data type 'date' to string and then to integer from column 'episode_day_created'. 
+        tests: 
+        - not_null  
+
+      - name: dim_air_date_key
+        description: Converted data type 'date' to string and then to integer from column 'air_date'. 
+        tests: 
+        - not_null  
+
       - name: episode_id
         description: The id of the episode
         tests: 
         - unique
         - not_null
+      
       - name: episode_name
         description: Name of the episode.
         tests: 
         - not_null
+      
       - name: air_date
         description: The air date of the episode.
+      
       - name: episode_code
-        description: "The code of the episode."
+        description: The code of the episode.
+      
       - name: total_character_featuring
         description: Total character featuring at the episode 
+      
       - name: characters_urls
         description: List of characters who have been seen in the episode.
+      
       - name: episode_url
         description: Link to the episode's own endpoint.
+      
       - name: episode_day_created
         description: Day at which the episode was created in the database.

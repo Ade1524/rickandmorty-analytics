@@ -3,11 +3,11 @@ with  first_appearance as (
     select
         dc.character_id,
         min(de.episode_id) as first_episode_id
-    from {{ ref('fact_mart_rkandmy') }} f
-    left join {{ ref('dim_characters') }} dc
-        on f.dim_character_sk = dc.dim_character_sk
-    left join {{ ref('dim_episodes') }} de
-        on f.dim_episodes_sk = de.dim_episodes_sk
+    from {{ ref('fact_character_episode_location') }} f
+    left join {{ ref('dim_character') }} dc
+        on f.dim_character_key = dc.dim_character_key
+    left join {{ ref('dim_episode') }} de
+        on f.dim_episode_key = de.dim_episode_key
     group by dc.character_id
 )
 
@@ -25,7 +25,7 @@ select
     ncc.new_character_count,
     rank() over (order by ncc.new_character_count desc) as rank
 from new_character_counts ncc
-join {{ ref('dim_episodes') }} de
+join {{ ref('dim_episode') }} de
     on ncc.episode_id = de.episode_id
 order by rank
 

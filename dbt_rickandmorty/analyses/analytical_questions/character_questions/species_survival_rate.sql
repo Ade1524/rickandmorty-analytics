@@ -2,8 +2,8 @@ with species_status as (
     select
         species,
         status,
-        count(distinct dim_character_sk) as character_count
-    from {{ ref('dim_characters') }}
+        count(distinct dim_character_key) as character_count
+    from {{ ref('dim_character') }}
     where status in ('Alive','Dead')
     group by species, status
 ),

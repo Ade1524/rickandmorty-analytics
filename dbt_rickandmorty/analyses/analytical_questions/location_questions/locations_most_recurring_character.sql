@@ -2,9 +2,8 @@ with character_episode_counts as (
     select
         f.character_id,
         f.total_episodes_feature
-    from {{ ref('fact_mart_rkandmy') }} f
-    left join {{ ref('dim_episodes') }} de
-        on f.dim_episodes_sk = de.dim_episodes_sk
+    from {{ ref('fact_character_episode_location') }} f
+    left join {{ ref('dim_episode') }} de on f.dim_episode_key = de.dim_episode_key
     group by f.character_id, f.total_episodes_feature
 )
 
@@ -24,10 +23,8 @@ with character_episode_counts as (
         dl.location_name,
         count(distinct rc.character_id) as recurring_character_count
     from recurring_characters rc
-    join {{ ref('fact_mart_rkandmy') }} fc
-        on fc.character_id = rc.character_id
-    join {{ ref('dim_locations') }} dl
-        on fc.location_id = dl.location_id
+    join {{ ref('fact_character_episode_location') }} fc on fc.character_id = rc.character_id
+    join {{ ref('dim_location') }} dl on fc.location_id = dl.location_id
     group by dl.location_id, dl.location_name
 )
 select

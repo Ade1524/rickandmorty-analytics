@@ -1,7 +1,8 @@
 select
-    species,
-    sum(case when status='Alive' then 1 else 0 end) as alive_count,
-    sum(case when status='Dead' then 1 else 0 end) as dead_count
-from {{ ref('dim_character') }}
-group by species
-order by alive_count desc
+    a.species,
+    sum(b.alive_count) as total_alive,
+    sum(b.death_count) as total_dead
+from {{ ref('dim_character') }} a
+left join {{ ref('fct_character') }}  b on a.dim_character_key = b.dim_character_key
+group by a.species
+order by total_alive desc

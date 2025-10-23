@@ -10,14 +10,27 @@ models:
         tests: 
         - unique 
         - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: dim_character_key
 
       - name: dim_character_created_date_key
         description: Converted data type 'date' to string and then to integer from column 'character_day_created'. 
         tests: 
         - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: dim_character_created_date_key
+
 
       - name: character_id
         description: The id of the character.
+        tests: 
+        - unique 
+        - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: character_id
 
       - name: character_name
         description: Name of the character.
@@ -37,4 +50,7 @@ models:
         description: Column metric total of the character which status is 'Dead'. 1 if is true or 0 if false. 
 
       - name: character_day_created
-        description: Day at which the character was created in the database. 
+        description: Day at which the character was created in the APIs. 
+
+
+

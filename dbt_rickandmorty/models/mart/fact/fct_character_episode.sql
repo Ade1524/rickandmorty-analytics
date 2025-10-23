@@ -76,7 +76,8 @@ select
     seasons,
     episode_code,
     total_character_featuring,
-    air_date     
+    air_date,
+    episode_day_created     
 from character_episode
 order by 
          episode_id,

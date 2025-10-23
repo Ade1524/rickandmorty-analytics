@@ -10,14 +10,25 @@ models:
         tests: 
         - unique 
         - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: dim_character_key
 
       - name: dim_character_created_date_key
         description: Converted data type 'date' to string and then to integer from column 'character_day_created'. 
         tests: 
-        - not_null  
+        - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: dim_character_created_date_key  
 
       - name: character_id
         description: The id of the character.
+        tests:
+        - not_null
+        - relationships:
+              to: ref('dim_character')
+              field: character_id
 
       - name: total_episodes_feature
         description: A calculated metric representing the total number of episodes this character has featured in (or the count used to aggregate to this fact's grain).
@@ -27,9 +38,18 @@ models:
 
       - name: dim_location_key
         description: Surrogate Key (FK) linking to the dim_location table.
+        tests:
+        - relationships:
+              to: ref('dim_location')
+              field: dim_location_key
+
 
       - name: dim_location_created_date_key
         description: Converted data type 'date' to string and then to integer from column 'location_date_created'. 
+        tests:
+         - relationships:
+              to: ref('dim_location')
+              field: dim_location_created_date_key
           
 
       - name: last_location_id
@@ -43,18 +63,27 @@ models:
 
       - name: dim_episode_key
         description: Surrogate Key (FK) linking to the dim_episode table.
-        tests: 
+        tests:
         - not_null
+        - relationships:
+              to: ref('dim_episode')
+              field: dim_episode_key 
 
       - name: dim_episode_date_created_key
         description: Converted data type 'date' to string and then to integer from column 'episode_day_created'. 
         tests: 
-        - not_null  
+        - not_null
+        - relationships:
+              to: ref('dim_episode')
+              field: dim_episode_date_created_key  
 
       - name: dim_air_date_key
         description: Converted data type 'date' to string and then to integer from column 'air_date'. 
         tests: 
-        - not_null  
+        - not_null
+        - relationships:
+              to: ref('dim_episode')
+              field: dim_air_date_key  
 
       - name: episode_id
         description: The id of the episode.

@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: fct_episode
+    description: Episode fact table containing episode-level metrics and dimensions. Central fact table for episode analytics including character counts, air dates, and episode classifications. One row per episode.
+
+    columns:
+     - name: dim_episode_key
+       description: Surrogate key (episode_id + episode_name + episode_code + episode_url).
+       tests:  
+         - not_null
+         - relationships:
+              to: ref('dim_episode')
+              field: dim_episode_key
+
+     - name: episode_created_date_key
+       description: Converted data type 'date' to string and then to integer from column 'episode_day_created'. 
+       tests: 
+        - not_null 
+        - relationships:
+              to: ref('dim_episode')
+              field: dim_episode_date_created_key
+      
+     - name: air_date_key
+       description: Converted data type 'date' to string and then to integer from column 'air_date'. 
+       tests: 
+        - not_null  
+        - relationships:
+              to: ref('dim_episode')
+              field: dim_air_date_key
+
+     - name: episode_id
+       description: The id of the episode.
+       tests:
+          - not_null
+          - relationships:
+              to: ref('dim_episode')
+              field: episode_id
+
+     - name: air_date
+       description: The air date of the episode.
+
+     - name: episode_code
+       description: The unique production code of the episode (e.g., S01E01)
+
+     - name: total_character_featuring
+       description: Total character featuring at the episode   
+
+     - name: episode_day_created
+       description: Day at which the episode was created in the database.
+      

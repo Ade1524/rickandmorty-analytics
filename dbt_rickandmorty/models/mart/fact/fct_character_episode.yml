@@ -81,16 +81,3 @@ models:
 
       - name: episode_day_created
         description: Day at which the episode was created in the database.  
-
-
-
-
-
-
-   
-    
-    
-
-
-
-

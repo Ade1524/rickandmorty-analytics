@@ -3,7 +3,7 @@ with base as (
         character_name,
         total_episodes_feature
     from {{ ref('dim_character') }}
-    WHERE
+    WHERE true
         character_name NOT ILIKE '%rick%'
         AND character_name NOT ILIKE '%morty%'
     order by 

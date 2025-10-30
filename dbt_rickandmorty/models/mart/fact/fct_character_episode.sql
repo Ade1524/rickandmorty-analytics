@@ -71,6 +71,8 @@ select
     character_id,
     character_day_created,
     status,
+    alive_count,
+    death_count,
     total_episodes_feature,
     episode_id,
     seasons,

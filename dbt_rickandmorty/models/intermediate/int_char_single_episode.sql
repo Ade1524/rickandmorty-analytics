@@ -2,7 +2,16 @@
     materialized = 'view'
 ) }}
 
-with unnested_charater_episode as (
+with characters as (
+    select *
+    from {{ ref('stg_characters') }}
+)
+
+, episode as (
+    select *
+    from {{ ref('stg_episodes') }}
+)
+,unnested_charater_episode as (
 
     -- Step 1: Split the pipe-delimited episodes_feature into individual rows
     select
@@ -14,7 +23,7 @@ with unnested_charater_episode as (
         c.character_url,
         t.index as episode_index,
         t.value as episode_url
-    from {{ ref('stg_characters') }} as c,
+    from characters as c,
          table(split_to_table(c.episodes_feature, '|')) as t
 
 ),
@@ -39,7 +48,7 @@ select
     r.episode_url,
     r.total_episodes_feature
 from ranked r
-left join {{ ref('stg_episodes') }} e
+left join episode e
     on r.episode_url = e.episode_url
 where r.rn = 1
 order by r.character_id asc

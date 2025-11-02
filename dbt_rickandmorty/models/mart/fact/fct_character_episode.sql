@@ -1,4 +1,19 @@
-with exploded as (
+with characters as (
+    select * 
+    from {{ ref('dim_character') }}
+) 
+
+, episodes as (
+    select * 
+    from {{ ref('dim_episode') }}
+)
+
+, dates as (
+    select * 
+    from {{ ref('dim_date') }}
+)
+
+,exploded as (
     select
         c.dim_character_key,
         dim_character_created_date_key,
@@ -12,7 +27,7 @@ with exploded as (
         character_day_created,
         t.value as episode_url,
         row_number() over (partition by c.character_id order by t.value) as rn
-    from {{ ref('dim_character') }} c,
+    from characters c,
          table(split_to_table(c.episodes_feature, '|')) as t
 )
 , character_episode as (
@@ -37,9 +52,9 @@ select
     b.episode_day_created,
     c.date_day
 from exploded a 
-left join {{ ref('dim_episode') }} b on a.episode_url = b.episode_url
-left join {{ ref('dim_date') }} c on b.dim_episode_date_created_key = c.dim_date_key
-left join {{ ref('dim_date') }} d on b.dim_air_date_key = d.dim_date_key
+left join episodes b on a.episode_url = b.episode_url
+left join dates c on b.dim_episode_date_created_key = c.dim_date_key
+left join dates d on b.dim_air_date_key = d.dim_date_key
 group by
     a.dim_character_key,
     b.dim_episode_key,

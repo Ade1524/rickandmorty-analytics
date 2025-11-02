@@ -1,4 +1,13 @@
-with epi_c as (
+with episodes as (
+    select *
+    from {{ ref('dim_episode') }}
+) 
+
+, dates as (
+    select * 
+    from {{ ref('dim_date') }}
+)
+,epi_c as (
     select  
                dim_episode_key,
                to_char(episode_day_created, 'YYYYMMDD')::number AS episode_created_date_key,
@@ -8,14 +17,14 @@ with epi_c as (
                episode_code,
                total_character_featuring,
                episode_day_created      
-    from {{ ref('dim_episode') }} 
+    from  episodes
     
 )
 
 select 
     a.*
 from epi_c a
-left join {{ ref('dim_date') }} b on a.episode_created_date_key = b.dim_date_key 
-left join {{ ref('dim_date') }} c on a.air_date_key = c.dim_date_key  
+left join dates  b on a.episode_created_date_key = b.dim_date_key 
+left join dates c on a.air_date_key = c.dim_date_key  
 
 

@@ -26,8 +26,8 @@ from dim_ep
 
 select 
     dim_episode_key,
-    {{ date_to_string('episode_day_created', 'YYYYMMDD') }} as dim_episode_date_created_key,
-    {{ date_to_string('air_date', 'YYYYMMDD') }} as dim_air_date_key,
+    {{ timestamp_to_date_key('episode_day_created', 'dim_episode_date_created_key') }},
+    {{ timestamp_to_date_key('air_date', 'dim_air_date_key') }},
     episode_id,
     episode_name,
     air_date,

@@ -29,7 +29,7 @@ from dim_ch
 
 select 
     dim_character_key,
-    {{ date_to_string('character_day_created', 'YYYYMMDD') }} as dim_character_created_date_key,
+    {{ timestamp_to_date_key('character_day_created', 'dim_character_created_date_key') }},
     character_id,
     character_name,
     status,

@@ -26,7 +26,7 @@ from dim_loc
 
 select 
     dim_location_key,
-    {{ date_to_string('location_date_created', 'YYYYMMDD') }} as dim_location_created_date_key,
+    {{ timestamp_to_date_key('location_date_created', 'dim_location_created_date_key') }},
     location_id,
     location_name,
     location_type,
